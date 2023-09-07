@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import * as Yup from 'yup';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import GoogleLogin from './GoogleLogin';
 
@@ -10,7 +10,7 @@ export default function LoginForm() {
   const formik = useFormik({
     initialValues: {
       email: 'povilas@feu8.com',
-      password: 'feu888',
+      password: 'feu999',
     },
     validationSchema: Yup.object({
       email: Yup.string().email().required(),
@@ -31,7 +31,7 @@ export default function LoginForm() {
         const user = userCredential.user;
         // ...
         console.log('user login ok ===', user);
-        navigate('/', { replace: true });
+        navigate('/shops', { replace: true });
       })
       .catch((error) => {
         toast.error('Login failed, check email or password');
@@ -42,7 +42,8 @@ export default function LoginForm() {
   }
 
   return (
-    <div className='border border-slate-500 p-8 shadow-md rounded-sm'>
+    <div className='mb-20 border border-slate-500 p-8 shadow-md rounded-sm'>
+      <Toaster />
       <form onSubmit={formik.handleSubmit} className='max-w-xs'>
         <div className='mb-2'>
           <input
@@ -73,7 +74,7 @@ export default function LoginForm() {
           )}
         </div>
         <button
-          className='border border-slate-500 px-4 py-2 rounded-md'
+          className='bg-slate-300 hover:bg-slate-400 drop-shadow-md px-4 py-2 rounded-md'
           type='submit'
         >
           Login

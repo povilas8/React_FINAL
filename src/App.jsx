@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
@@ -16,6 +17,7 @@ export default function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/shops' element={<ShopsPage />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

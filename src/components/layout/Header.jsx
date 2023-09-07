@@ -37,14 +37,5 @@ export default function Header() {
         </nav>
       </div>
     </header>
-    // <div className='bg-slate-200'>
-    //   <header className='container flex mt-2'>
-    //     <Navlink />
-    //     <HomePage />
-    //     <ShopsPage />
-    //     <LoginPage />
-    //     <RegisterPage />
-    //   </header>
-    // </div>
   );
 }
