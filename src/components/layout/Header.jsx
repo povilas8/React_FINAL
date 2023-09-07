@@ -5,11 +5,13 @@ import ShopsPage from '../../pages/ShopsPage';
 
 export default function Header() {
   return (
-    <header className='container flex justify-between items-center '>
-      <HomePage />
-      <LoginPage />
-      <RegisterPage />
-      <ShopsPage />
-    </header>
+    <div className='bg-slate-200'>
+      <header className='container flex mt-2'>
+        <HomePage />
+        <ShopsPage />
+        <LoginPage />
+        <RegisterPage />
+      </header>
+    </div>
   );
 }
