@@ -34,6 +34,12 @@ export default function Header() {
           >
             Login
           </NavLink>
+          <NavLink
+            to='/logout'
+            className=' hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+          >
+            Logout
+          </NavLink>
         </nav>
       </div>
     </header>

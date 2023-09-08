@@ -26,7 +26,7 @@ export default function LoginForm() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        toast.success('Login successful, welcome');
+        toast.success('Login successfully');
         // Signed in
         const user = userCredential.user;
         // ...
