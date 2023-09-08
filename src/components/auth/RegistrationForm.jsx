@@ -1,14 +1,14 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
-import { useState } from 'react';
+import { Toaster, toast } from 'react-hot-toast';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 export default function RegistrationForm() {
-  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
-      age: '',
       email: '',
       password: '',
       repeatPassword: '',
@@ -16,21 +16,9 @@ export default function RegistrationForm() {
     validationSchema: Yup.object({
       email: Yup.string()
         .trim()
-        .matches(
-          /^([a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ0-9._%-]+@[a-ząčęėįšųūA-ZĄČĘĖĮŠŲŪ0-9.-]+\.[a-zA-Z]{2,})$/,
-          'Patikrinkite Emaila'
-        )
         .min(3, 'Minimum 3 simboliai')
-        .required('Privalomas laukas')
-        .oneOf(
-          [
-            'george.bluth@reqres.in',
-            'janet.weaver@reqres.in',
-            'emma.wong@reqres.in',
-            'eve.holt@reqres.in',
-          ],
-          'email doesnt match'
-        ),
+        .required('Privalomas laukas'),
+
       password: Yup.string()
         .trim()
         .min(4, 'Minimum 4 simboliai')
@@ -44,77 +32,79 @@ export default function RegistrationForm() {
         .required('Privalomas laukas')
         .oneOf([Yup.ref('password'), null], 'Passwords do not match!'),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log('paskyra užregistruota, duomenys:', values);
-      handleRegister(values);
+      try {
+        const { email, password } = values;
+        const auth = getAuth();
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        console.log('userCredential ===', userCredential);
+        toast.success('Your account is now registered!' + email);
+
+        navigate('/shops', { replace: true });
+      } catch (error) {
+        toast.error('Registration failed, please try again');
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.warn({ errorCode, errorMessage });
+      }
     },
   });
 
-  function handleRegister(userCredentialsObj) {
-    console.log('userCredentialsObj ===', userCredentialsObj);
-    axios
-      .post('https://reqres.in/api/register', userCredentialsObj)
-      .then((ats) => {
-        console.log('ats ===', ats);
-        console.log('ats.data.token ===', ats.data.token);
-        if (ats.data.token) {
-          console.log('Registracija sėkminga');
-          setRegisterSuccess(true);
-        }
-      })
-      .catch((error) => {
-        console.warn('ivyko klaida:', error);
-        formik.setErrors({ email: 'Email or password not found' });
-      });
-  }
-
   return (
-    <container>
+    <div className='mb-20 border border-slate-500 p-8 shadow-md rounded-sm'>
       <h2>Register new account</h2>
-
-      {registerSuccess && (
-        <div>
-          <h2>Your account is now registered!</h2>
-        </div>
-      )}
-      {!registerSuccess && (
-        <form onSubmit={formik.handleSubmit}>
-          <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-            type='text'
-            placeholder='Email'
-            id='email'
-          />
-          {formik.errors.email && formik.touched.email && (
-            <p>{formik.errors.email}</p>
-          )}
-          <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            type='password'
-            placeholder='Password'
-            id='password'
-          />
-          {formik.errors.password && formik.touched.password && (
-            <p>{formik.errors.password}</p>
-          )}
-          <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.repeatPassword}
-            type='password'
-            placeholder='Repeat password'
-            id='repeatPassword'
-          />
-          {formik.errors.repeatPassword && formik.touched.repeatPassword && (
-            <p>{formik.errors.repeatPassword}</p>
-          )}
-          <button type='submit'>Register</button>
-        </form>
-      )}
-    </container>
+      <Toaster />
+      <form onSubmit={formik.handleSubmit} className='max-w-xs'>
+        <input
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.email}
+          className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
+          type='text'
+          placeholder='Email'
+          id='email'
+        />
+        {formik.errors.email && formik.touched.email && (
+          <p className='text-md text-red-500'>{formik.errors.email}</p>
+        )}
+        <input
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.password}
+          className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
+          type='password'
+          placeholder='Password'
+          id='password'
+        />
+        {formik.errors.password && formik.touched.password && (
+          <p className='text-md text-red-500 '>{formik.errors.password}</p>
+        )}
+        <input
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.repeatPassword}
+          className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
+          type='password'
+          placeholder='Repeat password'
+          id='repeatPassword'
+        />
+        {formik.errors.repeatPassword && formik.touched.repeatPassword && (
+          <p className='text-md text-red-500 '>
+            {formik.errors.repeatPassword}
+          </p>
+        )}
+        <button
+          className='bg-slate-300 hover:bg-slate-400 drop-shadow-md px-4 py-2 rounded-md'
+          type='submit'
+        >
+          Register
+        </button>
+      </form>
+    </div>
   );
 }
