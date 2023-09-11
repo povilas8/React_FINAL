@@ -1,46 +1,34 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const AuthContext = createContext({
-  email: '',
-  userLoggedIn: '',
+  user: '',
+  isLoggedIn: '',
   userUid: '',
 });
 
-AuthContext.displayName = 'Auth';
-
 export default function AuthProvider(props) {
-  const [fireUser, setFireUser] = useState({});
-
-  const email = fireUser.email;
-  const userUid = fireUser.uid;
-  let userLoggedIn = !!email;
-  userLoggedIn = email ? true : false;
-
-  const ctx = {
-    email: email,
-    isUserLoggedIn: userLoggedIn,
-    userUid: userUid,
-  };
+  const [fireUser, setFireUser] = useState(null);
 
   useEffect(() => {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        // const uid = user.uid;
-        // ...
-        console.log('Login success');
         setFireUser(user);
       } else {
-        // User is signed out
-        // ...
-        console.log('Logout');
-        setFireUser({});
+        setFireUser(null);
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
+
+  const ctx = {
+    user: fireUser,
+    isLoggedIn: !!fireUser,
+  };
 
   return (
     <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>

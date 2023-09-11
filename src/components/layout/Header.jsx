@@ -111,15 +111,13 @@ export default function Header() {
   const ctx = useAuth();
 
   const isLoggedIn = ctx.userLoggedIn;
-
-  console.log('isLoggedIn ===', ctx.userLoggedIn);
+  console.log('isLoggedIn ===', isLoggedIn);
 
   function logout() {
     signOut(auth)
       .then(() => {
         toast.success('You have logged out');
       })
-
       .catch((error) => {
         console.log('SignOut error ===', error);
       });
@@ -141,7 +139,7 @@ export default function Header() {
         />
 
         <nav className='place-self-center'>
-          {!isLoggedIn && (
+          {!ctx.isLoggedIn && (
             <>
               <NavLink
                 to={'/'}
@@ -166,7 +164,7 @@ export default function Header() {
             </>
           )}
 
-          {isLoggedIn && (
+          {ctx.isLoggedIn && (
             <>
               <NavLink
                 to={'/'}
@@ -180,6 +178,13 @@ export default function Header() {
                 className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
               >
                 Shops
+              </NavLink>
+
+              <NavLink
+                to={'/additem'}
+                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+              >
+                Add Item
               </NavLink>
 
               <NavLink
