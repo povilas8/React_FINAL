@@ -9,19 +9,20 @@ import toast from 'react-hot-toast';
 
 function CreateItem() {
   const ctx = useAuth();
-  // Initial values for the form fields
+
   const initialValues = {
-    title: 'iPhone 9',
-    description: 'An apple mobile which is nothing like apple',
-    price: 549,
-    stock: 94,
-    brand: 'Apple',
+    title: 'BlackBerry Motion',
+    description:
+      'Unreleased concept model. Very rare that why price is so high.',
+    price: 3223,
+    stock: 1,
+    brand: 'BlackBerry',
     category: 'smartphones',
-    mainImgUrl: 'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
+    mainImgUrl:
+      'https://telecomtalk.info/wp-content/uploads/2017/10/BlackBerry-Motion-1.jpeg',
     tags: 'tech, phones',
   };
 
-  // Validation schema using Yup
   const validationSchema = Yup.object({
     title: Yup.string().required('Title is required'),
     description: Yup.string().required('Description is required'),
@@ -42,16 +43,12 @@ function CreateItem() {
       .min(1, 'At least one tag is required'),
   });
 
-  // Formik configuration
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      // Handle form submission here
-      // console.log('Form submitted with values:', values);
       const newAddObjWithUid = {
         ...values,
-        // userUid: ctx.userUid,
       };
       console.log('newAddObjWithUid ===', newAddObjWithUid);
       sendDataToFireBase(newAddObjWithUid);
@@ -74,15 +71,14 @@ function CreateItem() {
   return (
     <div className='min-h-screen bg-gray-100 flex items-center justify-center'>
       <div className='bg-white p-8 rounded-lg shadow-md w-96'>
-        <h2 className='text-2xl font-semibold mb-4'>Create Ad</h2>
+        <h2 className='text-2xl font-semibold mb-4'>Sell your BlackBerry</h2>
         <form onSubmit={formik.handleSubmit}>
-          {/* Title */}
           <div className='mb-4'>
             <label
               htmlFor='title'
               className='block text-sm font-medium text-gray-700'
             >
-              Title
+              Model
             </label>
             <input
               type='text'
@@ -104,7 +100,6 @@ function CreateItem() {
             )}
           </div>
 
-          {/* Description */}
           <div className='mb-4'>
             <label
               htmlFor='description'
@@ -131,7 +126,6 @@ function CreateItem() {
             )}
           </div>
 
-          {/* Price */}
           <div className='mb-4'>
             <label
               htmlFor='price'
@@ -159,13 +153,12 @@ function CreateItem() {
             )}
           </div>
 
-          {/* Stock */}
           <div className='mb-4'>
             <label
               htmlFor='stock'
               className='block text-sm font-medium text-gray-700'
             >
-              Stock
+              Units
             </label>
             <input
               type='number'
@@ -187,63 +180,6 @@ function CreateItem() {
             )}
           </div>
 
-          {/* Brand */}
-          <div className='mb-4'>
-            <label
-              htmlFor='brand'
-              className='block text-sm font-medium text-gray-700'
-            >
-              Brand
-            </label>
-            <input
-              type='text'
-              id='brand'
-              name='brand'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.brand}
-              className={`mt-1 p-2 w-full border rounded-md ${
-                formik.touched.brand && formik.errors.brand
-                  ? 'border-red-500 focus:border-red-500'
-                  : 'border-gray-300 focus:border-blue-500'
-              }`}
-            />
-            {formik.touched.brand && formik.errors.brand && (
-              <div className='text-red-500 text-sm mt-1'>
-                {formik.errors.brand}
-              </div>
-            )}
-          </div>
-
-          {/* Category */}
-          <div className='mb-4'>
-            <label
-              htmlFor='category'
-              className='block text-sm font-medium text-gray-700'
-            >
-              Category
-            </label>
-            <input
-              type='text'
-              id='category'
-              name='category'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.category}
-              className={`mt-1 p-2 w-full border rounded-md ${
-                formik.touched.category && formik.errors.category
-                  ? 'border-red-500 focus:border-red-500'
-                  : 'border-gray-300 focus:border-blue-500'
-              }`}
-            />
-            {formik.touched.category && formik.errors.category && (
-              <div className='text-red-500 text-sm mt-1'>
-                {formik.errors.category}
-              </div>
-            )}
-          </div>
-
-          {/* Main Image URL */}
           <div className='mb-4'>
             <label
               htmlFor='mainImgUrl'
@@ -267,34 +203,6 @@ function CreateItem() {
             {formik.touched.mainImgUrl && formik.errors.mainImgUrl && (
               <div className='text-red-500 text-sm mt-1'>
                 {formik.errors.mainImgUrl}
-              </div>
-            )}
-          </div>
-
-          {/* Tags */}
-          <div className='mb-4'>
-            <label
-              htmlFor='tags'
-              className='block text-sm font-medium text-gray-700'
-            >
-              Tags
-            </label>
-            <input
-              type='text'
-              id='tags'
-              name='tags'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.tags}
-              className={`mt-1 p-2 w-full border rounded-md ${
-                formik.touched.tags && formik.errors.tags
-                  ? 'border-red-500 focus:border-red-500'
-                  : 'border-gray-300 focus:border-blue-500'
-              }`}
-            />
-            {formik.touched.tags && formik.errors.tags && (
-              <div className='text-red-500 text-sm mt-1'>
-                {formik.errors.tags}
               </div>
             )}
           </div>
