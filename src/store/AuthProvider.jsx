@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext({
   email: '',
-  isUserLoggedIn: '',
+  userLoggedIn: '',
   userUid: '',
 });
 
@@ -14,12 +14,12 @@ export default function AuthProvider(props) {
 
   const email = fireUser.email;
   const userUid = fireUser.uid;
-  let isUserLoggedIn = !!email;
-  isUserLoggedIn = email ? true : false;
+  let userLoggedIn = !!email;
+  userLoggedIn = email ? true : false;
 
   const ctx = {
     email: email,
-    isUserLoggedIn: isUserLoggedIn,
+    isUserLoggedIn: userLoggedIn,
     userUid: userUid,
   };
 
@@ -42,10 +42,10 @@ export default function AuthProvider(props) {
     });
   }, []);
 
-  return <AuthContext.Provider value={ctx}>{props}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>
+  );
 }
-
-// const ctx = useContext(AuthContext);
 
 export function useAuth() {
   return useContext(AuthContext);

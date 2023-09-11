@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Toaster, toast } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,20 +16,18 @@ export default function RegistrationForm() {
     validationSchema: Yup.object({
       email: Yup.string()
         .trim()
-        .min(3, 'Minimum 3 simboliai')
-        .required('Privalomas laukas'),
+        .min(3, 'At least 4 symbols is required')
+        .required('Email is required'),
 
       password: Yup.string()
         .trim()
-        .min(4, 'Minimum 4 simboliai')
-        .max(8)
-        .required('Privalomas laukas'),
+        .min(6, 'At least 6 symbols is required')
+        .required('Password is required'),
 
       repeatPassword: Yup.string()
         .trim()
-        .min(4, 'Minimum 4 simboliai')
-        .max(8)
-        .required('Privalomas laukas')
+        .min(6, 'At least 6 symbols is required')
+        .required('Password is required')
         .oneOf([Yup.ref('password'), null], 'Passwords do not match!'),
     }),
     onSubmit: async (values) => {
@@ -43,9 +41,10 @@ export default function RegistrationForm() {
           password
         );
         console.log('userCredential ===', userCredential);
-        toast.success('Your account is now registered!' + email);
-
-        navigate('/shops', { replace: true });
+        toast.success('Your account is now registered! ' + email);
+        setTimeout(() => {
+          navigate('/shops', { replace: true });
+        }, 2000);
       } catch (error) {
         toast.error('Registration failed, please try again');
         const errorCode = error.code;
@@ -57,8 +56,8 @@ export default function RegistrationForm() {
 
   return (
     <div className='mb-20 border border-slate-500 p-8 shadow-md rounded-sm'>
-      <h2>Register new account</h2>
       <Toaster />
+      <h2>Register new account</h2>
       <form onSubmit={formik.handleSubmit} className='max-w-xs'>
         <input
           onChange={formik.handleChange}

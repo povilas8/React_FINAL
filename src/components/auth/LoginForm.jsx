@@ -21,7 +21,6 @@ export default function LoginForm() {
       loginWithFire(values.email, values.password);
     },
   });
-
   function loginWithFire(email, password) {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
@@ -31,7 +30,9 @@ export default function LoginForm() {
         const user = userCredential.user;
         // ...
         console.log('user login ok ===', user);
-        navigate('/shops', { replace: true });
+        setTimeout(() => {
+          navigate('/shops', { replace: true });
+        }, 2000);
       })
       .catch((error) => {
         toast.error('Login failed, check email or password');

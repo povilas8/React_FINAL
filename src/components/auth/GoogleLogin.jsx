@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { FcGoogle } from 'react-icons/fc';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { googleProvider } from '../../firebase/firebase';
