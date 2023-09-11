@@ -142,13 +142,6 @@ export default function Header() {
           {!ctx.isLoggedIn && (
             <>
               <NavLink
-                to={'/'}
-                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
-              >
-                Home
-              </NavLink>
-
-              <NavLink
                 to='/login'
                 className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
               >
@@ -166,13 +159,6 @@ export default function Header() {
 
           {ctx.isLoggedIn && (
             <>
-              <NavLink
-                to={'/'}
-                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
-              >
-                Home
-              </NavLink>
-
               <NavLink
                 to={'/shops'}
                 className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'

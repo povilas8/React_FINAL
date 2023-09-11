@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-// import SingleItem from '../components/items/SingleItem';
+import SingleItem from '../components/items/SingleItem';
 
 export default function SingleItemPage() {
   const params = useParams();
