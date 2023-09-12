@@ -1,0 +1,6 @@
+VITE_apiKey='Your API key'
+VITE_authDomain='Your authDomain'
+VITE_projectId='Your project name'
+VITE_storageBucket='Your storage bucket'
+VITE_messagingSenderId='Messaging ID'
+VITE_appId='App ID'
