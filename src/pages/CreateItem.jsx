@@ -210,7 +210,7 @@ function CreateItem() {
           <div className='mt-4'>
             <button
               type='submit'
-              className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300'
+              className='bg-slate-300 hover:bg-slate-400 drop-shadow-md px-4 py-2 rounded-md'
             >
               Submit
             </button>

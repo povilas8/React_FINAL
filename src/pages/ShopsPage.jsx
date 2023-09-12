@@ -39,7 +39,7 @@ export default function ShopsPage() {
   console.log('itemsArr ===', itemsArr);
   return (
     <div>
-      <h1 className='text-3xl mb-4 pt-4 text-center'>Shops</h1>
+      <h1 className='text-3xl mb-4 pt-4 text-center drop-shadow-lg'>Shops</h1>
       <ul className='container grid grid-cols-3 gap-4 pb-8'>
         {itemsArr.map((item) => (
           <SingleItem
