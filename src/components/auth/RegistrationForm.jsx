@@ -1,7 +1,11 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import toast, { Toaster } from 'react-hot-toast';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
+} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 export default function RegistrationForm() {
@@ -35,16 +39,23 @@ export default function RegistrationForm() {
       try {
         const { email, password } = values;
         const auth = getAuth();
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        console.log('userCredential ===', userCredential);
-        toast.success('Your account is now registered! ' + email);
-        setTimeout(() => {
-          navigate('/shops', { replace: true });
-        }, 2000);
+        const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+
+        if (signInMethods.length === 0) {
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+          console.log('userCredential ===', userCredential);
+          toast.success('Your account is now registered! ' + email);
+          setTimeout(() => {
+            navigate('/shops', { replace: true });
+          }, 2000);
+        } else {
+          toast.error('An account with this email address already exists.');
+        }
       } catch (error) {
         toast.error('Registration failed, please try again');
         const errorCode = error.code;
