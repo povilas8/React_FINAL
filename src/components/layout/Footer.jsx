@@ -1,3 +1,5 @@
+import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
+
 export default function Footer() {
   return (
     <footer>
@@ -29,17 +31,28 @@ export default function Footer() {
           <div>
             <h2 className='font-bold pb-3'>Social Media</h2>
             <ul>
-              <li>
-                <a href='https://www.facebook.com'>Facebook</a>
+              <li className='pb-2 pl-10'>
+                <a href='https://www.facebook.com'>
+                  {' '}
+                  <FaFacebook />
+                </a>
               </li>
-              <li>
-                <a href='https://www.twitter.com'>Twitter</a>
+              <li className='pb-2 pl-10'>
+                <a href='https://www.twitter.com'>
+                  {' '}
+                  <FaTwitter />
+                </a>
               </li>
-              <li>
-                <a href='https://www.linkedin.com'>LinkedIn</a>
+              <li className='pb-2 pl-10'>
+                <a href='https://www.linkedin.com'>
+                  <FaLinkedin />
+                </a>
               </li>
-              <li>
-                <a href='https://www.instagram.com'>Instagram</a>
+              <li className='pb-2 pl-10'>
+                <a href='https://www.instagram.com'>
+                  {' '}
+                  <FaInstagram />
+                </a>
               </li>
             </ul>
           </div>
