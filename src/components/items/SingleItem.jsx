@@ -20,7 +20,7 @@ export default function SingleItem(props) {
       </p>
 
       <p className='text-slate-500 py-3 px-4'>
-        Description: <span className='text-black'>{item.stock}</span>
+        Units: <span className='text-black'>{item.stock}</span>
       </p>
 
       <div className='flex justify-between align-bottom'>
