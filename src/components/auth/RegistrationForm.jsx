@@ -55,7 +55,7 @@ export default function RegistrationForm() {
   });
 
   return (
-    <div className='mb-20 border border-slate-500 p-8 shadow-md rounded-sm'>
+    <div className='mx-auto mb-20 border border-slate-500 p-8 shadow-md rounded-sm w-96'>
       <Toaster />
       <h2>Register new account</h2>
       <form onSubmit={formik.handleSubmit} className='max-w-xs'>

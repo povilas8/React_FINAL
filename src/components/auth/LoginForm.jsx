@@ -43,7 +43,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className='mb-20 border border-slate-500 p-8 shadow-md rounded-sm'>
+    <div className='mx-auto mb-20 border border-slate-500 p-8 shadow-md rounded-sm w-96'>
       <Toaster />
       <form onSubmit={formik.handleSubmit} className='max-w-xs'>
         <div className='mb-2'>

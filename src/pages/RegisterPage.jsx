@@ -2,8 +2,8 @@ import RegistrationForm from '../components/auth/RegistrationForm';
 
 export default function RegisterPage() {
   return (
-    <div className='container'>
-      <h1 className='text-lg mb-4 pt-4 text-center'>Register</h1>
+    <div className='container text-center mt-5'>
+      <h1 className='container text-2xl mb-4 pt-4'>Register</h1>
       <RegistrationForm />
     </div>
   );
