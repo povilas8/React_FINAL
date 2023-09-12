@@ -69,7 +69,7 @@ function CreateItem() {
   }
 
   return (
-    <div className='min-h-screen bg-gray-100 flex items-center justify-center'>
+    <div className='min-h-screen bg-gray-100 flex items-center justify-center py-8'>
       <div className='bg-white p-8 rounded-lg shadow-md w-96'>
         <h2 className='text-2xl font-semibold mb-4'>Sell your BlackBerry</h2>
         <form onSubmit={formik.handleSubmit}>

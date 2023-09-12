@@ -27,7 +27,7 @@ export default function Header() {
   };
 
   return (
-    <header className='mb-4 bg-slate-200 py-2'>
+    <header className=' bg-slate-200 py-2'>
       <div className='container flex justify-between'>
         <img
           className='max-w-[15%]'

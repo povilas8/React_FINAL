@@ -13,3 +13,9 @@
 .body {
   margin-top: 0;
 }
+
+@media (max-width: 768px) {
+  .container.grid {
+    grid-template-columns: 1fr;
+  }
+}
