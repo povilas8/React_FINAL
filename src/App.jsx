@@ -18,6 +18,7 @@ export default function App() {
       <Header />
       <Routes>
         <Route path='/register' element={<RegisterPage />} />
+        <Route path='/' element={<LoginPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/shops' element={<ShopsPage />} />
         <Route path='/single' element={<SingleItemPage />} />

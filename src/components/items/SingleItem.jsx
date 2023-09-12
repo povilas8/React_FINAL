@@ -4,8 +4,8 @@ export default function SingleItem(props) {
   const { item } = props;
 
   return (
-    <ul className='bg-slate-200 drop-shadow-lg'>
-      <img className='max-h-[270px]' src={item.mainImgUrl} alt='item photo' />
+    <ul className='bg-slate-200 transform transition-transform hover:scale-105 transform-origin-center hover:shadow-lg'>
+      <img className='max-h-[270px] ' src={item.mainImgUrl} alt='item photo' />
 
       <h3 className='text-center p-4 text-xl font-medium drop-shadow-lg'>
         {item.title}
