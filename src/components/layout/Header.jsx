@@ -44,6 +44,12 @@ export default function Header() {
               >
                 Login
               </NavLink>
+              <NavLink
+                to='/single'
+                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+              >
+                Single
+              </NavLink>
 
               <NavLink
                 to={'/register'}
@@ -68,6 +74,12 @@ export default function Header() {
                 className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
               >
                 Add Item
+              </NavLink>
+              <NavLink
+                to={'/single'}
+                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+              >
+                Single
               </NavLink>
 
               <NavLink

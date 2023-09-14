@@ -2,11 +2,13 @@ import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
 import SingleItem from '../components/items/SingleItem';
+// import ItemsList from '../components/items/ItemsList';
 
 export default function ShopsPage() {
   <div className=' flex flex-col h-screen'></div>;
   const [itemsArr, setItemsArr] = useState([]);
   console.log('itemsArr ===', itemsArr);
+
   async function getAdds() {
     const querySnapshot = await getDocs(collection(db, 'shopitems'));
     console.log('querySnapshot ===', querySnapshot);

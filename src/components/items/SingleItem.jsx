@@ -1,11 +1,13 @@
+/* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
 
 export default function SingleItem(props) {
+  console.log('props ===', props);
   const { item } = props;
 
   return (
     <ul className='bg-slate-200 transform transition-transform hover:scale-105 transform-origin-center hover:shadow-lg'>
-      <img className='max-h-[270px] ' src={item.mainImgUrl} alt='item photo' />
+      <img className='object-fit' src={item.mainImgUrl} alt='item photo' />
 
       <h3 className='text-center p-4 text-xl font-medium drop-shadow-lg'>
         {item.title}
@@ -26,7 +28,7 @@ export default function SingleItem(props) {
       <div className='flex justify-between align-bottom'>
         <Link
           className='border border-slate-200 px-4 py-1 mt-3 bg-slate-600 text-white inline-block'
-          to={`/items/${item.id}`}
+          to={`/item/${item.id}`}
         >
           Read more
         </Link>

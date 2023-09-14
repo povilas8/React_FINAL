@@ -21,18 +21,20 @@ export default function App() {
         <Route path='/' element={<LoginPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/shops' element={<ShopsPage />} />
-        <Route path='/single' element={<SingleItemPage />} />
+        <Route path='/shopitems/:itemId' element={<SingleItemPage />} />
         <Route path='/additem' element={<CreateItem />} />
         <Route
           path='/additem'
-          element={
-            ctx.userLoggedIn ? <CreateItem /> : <Navigate to={'/login'} />
-          }
+          element={ctx.isLoggedIn ? <CreateItem /> : <Navigate to={'/login'} />}
         />
         <Route
-          path='/shops'
+          path='/shopitems/:itemId'
+          element={ctx.isLoggedIn ? <ShopsPage /> : <Navigate to={'/login'} />}
+        />
+        <Route
+          path='/single'
           element={
-            ctx.userLoggedIn ? <ShopsPage /> : <Navigate to={'/login'} />
+            ctx.isLoggedIn ? <SingleItemPage /> : <Navigate to={'/login'} />
           }
         />
         <Route path='/logout' element={<LoginPage />} />
