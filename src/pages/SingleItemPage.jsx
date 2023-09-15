@@ -10,11 +10,8 @@ export default function SingleItemPage() {
   const [currentItemObj, setCurrentAddObj] = useState({});
 
   useEffect(() => {
-    console.log('pasileido effectas');
-
     async function getSingleDocumentFromFirebase() {
-      const docRef = doc(db, 'shopitems', params.item.id);
-      console.log('params.item.id ===', params.item.id);
+      const docRef = doc(db, 'shopitems', params.itemId);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -26,31 +23,16 @@ export default function SingleItemPage() {
       }
     }
     getSingleDocumentFromFirebase();
-  }, [params.item.id]);
+  }, []);
 
-  console.log('po efektu kode');
   return (
     <div className='container'>
-      <h1 className='text-3xl mb-4 pt-4'>SingleAddPage</h1>
-      <img src={currentItemObj.mainImgUrl} alt='hero' />
+      <h1 className='text-3xl mb-4 pt-4 text-center'>Single Item Page</h1>
       <h2 className='text-2xl font-semibold'>
         Post title: {currentItemObj.title}
       </h2>
       <p>price: {currentItemObj.price} eur</p>
-      <SingleItem key={currentItemObj.id} item={currentItemObj} noDelete />
+      <SingleItem item={currentItemObj} noDelete />
     </div>
   );
 }
-
-// return (
-//   <div className='container'>
-//     <h1 className='text-3xl mb-4 pt-4'>SingleAddPage</h1>
-//     <img src={currentItemObj.mainImgUrl} alt='hero' />
-//     <h2 className='text-2xl font-semibold'>
-//       Post title: {currentItemObj.title}
-//     </h2>
-//     <p>price: {currentItemObj.price} eur</p>
-//     <SingleItem item={currentItemObj} noDelete />
-//   </div>
-// );
-// }

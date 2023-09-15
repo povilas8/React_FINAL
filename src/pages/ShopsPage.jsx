@@ -1,8 +1,7 @@
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
-import SingleItem from '../components/items/SingleItem';
-// import ItemsList from '../components/items/ItemsList';
+import ItemsList from '../components/items/ItemsList';
 
 export default function ShopsPage() {
   <div className=' flex flex-col h-screen'></div>;
@@ -44,7 +43,7 @@ export default function ShopsPage() {
       <h1 className='text-3xl mb-8 pt-4 text-center drop-shadow-lg'>Shops</h1>
       <ul className='container grid grid-cols-3 gap-4 pb-10'>
         {itemsArr.map((item) => (
-          <SingleItem
+          <ItemsList
             key={item.id}
             item={item}
             onDelete={() => deleteFire(item.id)}
