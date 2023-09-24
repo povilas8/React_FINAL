@@ -6,8 +6,8 @@ import toast from 'react-hot-toast';
 
 export default function Header() {
   const ctx = useAuth();
-
-  const isLoggedIn = ctx.userLoggedIn;
+  console.log('ctx ===', ctx);
+  const isLoggedIn = ctx.isLoggedIn;
   console.log('isLoggedIn ===', isLoggedIn);
 
   function logout() {
@@ -75,12 +75,6 @@ export default function Header() {
               >
                 Add Item
               </NavLink>
-              <NavLink
-                to={'/single'}
-                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
-              >
-                Single
-              </NavLink>
 
               <NavLink
                 onClick={handleLogout}
@@ -89,6 +83,8 @@ export default function Header() {
               >
                 Logout
               </NavLink>
+
+              <p className='inline-block text-lg px-3'>{ctx.user.email}</p>
             </>
           )}
         </nav>

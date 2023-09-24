@@ -7,28 +7,40 @@ const AuthContext = createContext({
   userUid: '',
 });
 
+AuthContext.displayName = 'Auth';
+
 export default function AuthProvider(props) {
-  const [fireUser, setFireUser] = useState(null);
+  const [fireUser, setFireUser] = useState({});
+
+  const email = fireUser.email;
+  const userUid = fireUser.uid;
+  let isUserLoggedIn = !!email;
+  isUserLoggedIn = email ? true : false;
+
+  const ctx = {
+    email: email,
+    isUserLoggedIn: isUserLoggedIn,
+    userUid: userUid,
+  };
 
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        // const uid = user.uid;
+        // ...
+        console.log('Login success');
         setFireUser(user);
       } else {
-        setFireUser(null);
+        // User is signed out
+        // ...
+        console.log('Logout');
+        setFireUser({});
       }
     });
-
-    return () => {
-      unsubscribe();
-    };
   }, []);
-
-  const ctx = {
-    user: fireUser,
-    isLoggedIn: !!fireUser,
-  };
 
   return (
     <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>

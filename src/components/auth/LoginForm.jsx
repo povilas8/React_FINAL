@@ -80,8 +80,8 @@ export default function LoginForm() {
         >
           Login
         </button>
-        <GoogleLogin />
       </form>
+      <GoogleLogin />
     </div>
   );
 }

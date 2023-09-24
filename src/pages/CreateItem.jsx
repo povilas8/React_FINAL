@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../store/AuthProvider';
@@ -7,19 +6,18 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import toast from 'react-hot-toast';
 
-function CreateItem() {
+export default function CreateItem() {
   const ctx = useAuth();
 
   const initialValues = {
     title: 'BlackBerry Motion',
     description:
-      'Unreleased concept model. Very rare that why price is so high.',
+      'Unreleased concept model. Very rare thats why price is so high.',
     price: 3223,
     stock: 1,
     brand: 'BlackBerry',
     category: 'smartphones',
-    mainImgUrl:
-      'https://telecomtalk.info/wp-content/uploads/2017/10/BlackBerry-Motion-1.jpeg',
+    attachement: '',
     tags: 'tech, phones',
   };
 
@@ -35,9 +33,13 @@ function CreateItem() {
       .min(0, 'Stock cannot be negative'),
     brand: Yup.string().required('Brand is required'),
     category: Yup.string().required('Category is required'),
-    mainImgUrl: Yup.string()
-      .required('Main Image URL is required')
-      .url('Invalid URL'),
+    attachement: Yup.mixed()
+      .required('Image is required')
+      .test('The file is too large', (value) => {
+        if (!value.size) return true;
+        return value[0].size <= 2000000;
+      }),
+
     tags: Yup.string()
       .required('Tags are required')
       .min(1, 'At least one tag is required'),
@@ -49,12 +51,31 @@ function CreateItem() {
     onSubmit: (values) => {
       const newAddObjWithUid = {
         ...values,
+        userUid: ctx.userUid,
       };
-      console.log('newAddObjWithUid ===', newAddObjWithUid);
       sendDataToFireBase(newAddObjWithUid);
     },
   });
   console.log('formik.errors ===', formik.errors);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 2000000) {
+        // Pridėti klaidos pranešimą, jei failas yra per didelis
+        formik.setFieldError('attachement', 'The file is too large (max 2MB)');
+        toast.error('The file is too large (max 2MB');
+      } else {
+        formik.setFieldError('attachement', ''); // Išvalyti klaidos pranešimą, jei failas yra tinkamas dydžio požiūriu
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const attachment = event.target.result;
+          formik.setFieldValue('attachement', attachment);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  };
 
   async function sendDataToFireBase(dataToSend) {
     console.log('creating');
@@ -182,27 +203,27 @@ function CreateItem() {
 
           <div className='mb-4'>
             <label
-              htmlFor='mainImgUrl'
+              htmlFor='attachement'
               className='block text-sm font-medium text-gray-700'
             >
-              Main Image URL
+              Attach photo (max 2MB)
             </label>
             <input
-              type='text'
-              id='mainImgUrl'
-              name='mainImgUrl'
-              onChange={formik.handleChange}
+              type='file'
+              id='attachement'
+              name='attachement'
+              accept='image/*'
+              onChange={handleFileChange}
               onBlur={formik.handleBlur}
-              value={formik.values.mainImgUrl}
               className={`mt-1 p-2 w-full border rounded-md ${
-                formik.touched.mainImgUrl && formik.errors.mainImgUrl
+                formik.touched.attachement && formik.errors.attachement
                   ? 'border-red-500 focus:border-red-500'
                   : 'border-gray-300 focus:border-blue-500'
               }`}
             />
-            {formik.touched.mainImgUrl && formik.errors.mainImgUrl && (
+            {formik.touched.attachement && formik.errors.attachement && (
               <div className='text-red-500 text-sm mt-1'>
-                {formik.errors.mainImgUrl}
+                {formik.errors.attachement}
               </div>
             )}
           </div>
@@ -220,5 +241,3 @@ function CreateItem() {
     </div>
   );
 }
-
-export default CreateItem;
