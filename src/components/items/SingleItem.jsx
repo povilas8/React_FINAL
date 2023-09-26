@@ -30,7 +30,7 @@ export default function SingleItem(props) {
       <p className='text-slate-500 py-3 px-4'>
         Units: <span className='text-black'>{stock}</span>
       </p>
-      <p>userUid: {userUid}</p>
+      <p>userUid: {ctx.userUid}</p>
       {myItems && !props.noDelete && (
         <button
           onClick={props.onDelete}

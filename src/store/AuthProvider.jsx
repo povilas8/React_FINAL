@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const AuthContext = createContext({
-  user: '',
+  email: '',
   isLoggedIn: '',
   userUid: '',
 });
@@ -14,12 +14,12 @@ export default function AuthProvider(props) {
 
   const email = fireUser.email;
   const userUid = fireUser.uid;
-  let isUserLoggedIn = !!email;
-  isUserLoggedIn = email ? true : false;
+  let isLoggedIn = !!email;
+  isLoggedIn = email ? true : false;
 
   const ctx = {
     email: email,
-    isUserLoggedIn: isUserLoggedIn,
+    isLoggedIn: isLoggedIn,
     userUid: userUid,
   };
 

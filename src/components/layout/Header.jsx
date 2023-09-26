@@ -1,7 +1,7 @@
 import { NavLink, Navigate } from 'react-router-dom';
 import { useAuth } from '../../store/AuthProvider';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase/firebase';
+import { signOut, getAuth } from 'firebase/auth';
+// import { auth } from '../../firebase/firebase';
 import toast from 'react-hot-toast';
 
 export default function Header() {
@@ -11,6 +11,8 @@ export default function Header() {
   console.log('isLoggedIn ===', isLoggedIn);
 
   function logout() {
+    const auth = getAuth();
+
     signOut(auth)
       .then(() => {
         toast.success('You have logged out');
@@ -84,7 +86,7 @@ export default function Header() {
                 Logout
               </NavLink>
 
-              <p className='inline-block text-lg px-3'>{ctx.user.email}</p>
+              <p className='inline-block text-lg px-3'>{ctx.email}</p>
             </>
           )}
         </nav>

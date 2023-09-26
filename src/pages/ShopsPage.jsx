@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import ItemsList from '../components/items/ItemsList';
 
 export default function ShopsPage() {
-  <div className=' flex flex-col h-screen'></div>;
   const [itemsArr, setItemsArr] = useState([]);
 
   async function getAdds() {

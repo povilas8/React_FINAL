@@ -5,20 +5,21 @@ import { useAuth } from '../store/AuthProvider';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import toast from 'react-hot-toast';
+import { useRef } from 'react';
 
 export default function CreateItem() {
   const ctx = useAuth();
+  const inputRef = useRef(null);
 
   const initialValues = {
-    title: 'BlackBerry Motion',
-    description:
-      'Unreleased concept model. Very rare thats why price is so high.',
-    price: 3223,
-    stock: 1,
-    brand: 'BlackBerry',
-    category: 'smartphones',
+    title: '',
+    description: '',
+    price: '',
+    stock: '',
+    brand: '',
+    category: '',
     attachement: '',
-    tags: 'tech, phones',
+    tags: '',
   };
 
   const validationSchema = Yup.object({
@@ -48,12 +49,13 @@ export default function CreateItem() {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       const newAddObjWithUid = {
         ...values,
         userUid: ctx.userUid,
       };
       sendDataToFireBase(newAddObjWithUid);
+      resetForm();
     },
   });
   console.log('formik.errors ===', formik.errors);
@@ -75,6 +77,11 @@ export default function CreateItem() {
         reader.readAsDataURL(file);
       }
     }
+  };
+
+  const resetFileInput = () => {
+    // 👇️ reset input value
+    inputRef.current.value = null;
   };
 
   async function sendDataToFireBase(dataToSend) {
@@ -117,6 +124,60 @@ export default function CreateItem() {
             {formik.touched.title && formik.errors.title && (
               <div className='text-red-500 text-sm mt-1'>
                 {formik.errors.title}
+              </div>
+            )}
+          </div>
+
+          <div className='mb-4'>
+            <label
+              htmlFor='title'
+              className='block text-sm font-medium text-gray-700'
+            >
+              Brand
+            </label>
+            <input
+              type='text'
+              id='brand'
+              name='brand'
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.brand}
+              className={`mt-1 p-2 w-full border rounded-md ${
+                formik.touched.brand && formik.errors.brand
+                  ? 'border-red-500 focus:border-red-500'
+                  : 'border-gray-300 focus:border-blue-500'
+              }`}
+            />
+            {formik.touched.brand && formik.errors.brand && (
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.brand}
+              </div>
+            )}
+          </div>
+
+          <div className='mb-4'>
+            <label
+              htmlFor='title'
+              className='block text-sm font-medium text-gray-700'
+            >
+              Category
+            </label>
+            <input
+              type='text'
+              id='tags'
+              name='category'
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.category}
+              className={`mt-1 p-2 w-full border rounded-md ${
+                formik.touched.category && formik.errors.category
+                  ? 'border-red-500 focus:border-red-500'
+                  : 'border-gray-300 focus:border-blue-500'
+              }`}
+            />
+            {formik.touched.category && formik.errors.category && (
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.category}
               </div>
             )}
           </div>
@@ -203,12 +264,40 @@ export default function CreateItem() {
 
           <div className='mb-4'>
             <label
+              htmlFor='stock'
+              className='block text-sm font-medium text-gray-700'
+            >
+              Tags
+            </label>
+            <input
+              type='text'
+              id='tags'
+              name='tags'
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.tags}
+              className={`mt-1 p-2 w-full border rounded-md ${
+                formik.touched.tags && formik.errors.tags
+                  ? 'border-red-500 focus:border-red-500'
+                  : 'border-gray-300 focus:border-blue-500'
+              }`}
+            />
+            {formik.touched.tags && formik.errors.tags && (
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.tags}
+              </div>
+            )}
+          </div>
+
+          <div className='mb-4'>
+            <label
               htmlFor='attachement'
               className='block text-sm font-medium text-gray-700'
             >
               Attach photo (max 2MB)
             </label>
             <input
+              ref={inputRef}
               type='file'
               id='attachement'
               name='attachement'
@@ -230,6 +319,7 @@ export default function CreateItem() {
 
           <div className='mt-4'>
             <button
+              onClick={resetFileInput}
               type='submit'
               className='bg-slate-300 hover:bg-slate-400 drop-shadow-md px-4 py-2 rounded-md'
             >

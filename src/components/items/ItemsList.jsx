@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../store/AuthProvider';
 
 export default function SingleItem(props) {
-  const { item, user, userUid } = props;
+  const { item } = props;
   const ctx = useAuth();
 
-  const myItems = user === ctx.userUid ? true : false;
+  const myItems = item.userUid === ctx.userUid ? true : false;
   console.log('myItems ===', myItems);
 
   return (
@@ -30,7 +30,7 @@ export default function SingleItem(props) {
       <p className='text-slate-500 py-3 px-4'>
         Units: <span className='text-black'>{item.stock}</span>
       </p>
-      <p>userUid: {userUid}</p>
+      <p>userUid: {item.userUid}</p>
 
       <div className='flex justify-between align-bottom'>
         <Link

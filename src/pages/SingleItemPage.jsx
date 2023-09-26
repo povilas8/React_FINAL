@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, deleteDoc, getDoc } from 'firebase/firestore';
 import { db } from './../firebase/firebase';
 import SingleItem from '../components/items/SingleItem';
 
@@ -19,13 +19,27 @@ export default function SingleItemPage() {
         console.log('No such document!');
       }
     }
+
     getSingleDocumentFromFirebase();
-  }, []);
+  }, [params.itemId]);
+
+  function deleteFire(delId) {
+    deleteDoc(doc(db, 'shopitems', delId))
+      .then(() => {
+        currentItemObj();
+      })
+      .catch((error) => {
+        console.warn('ivyko klaida:', error);
+      });
+  }
 
   return (
     <div className='container'>
       <h1 className='text-3xl mb-4 pt-4 text-center'>Single Item Page</h1>
-      <SingleItem item={currentItemObj} noDelete />
+      <SingleItem
+        item={currentItemObj}
+        onDelete={() => deleteFire(currentItemObj)}
+      />
     </div>
   );
 }
