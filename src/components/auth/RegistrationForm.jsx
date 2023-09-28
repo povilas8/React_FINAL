@@ -30,7 +30,7 @@ export default function RegistrationForm() {
 
       repeatPassword: Yup.string()
         .trim()
-        .min(6, 'At least 6 symbols is required')
+        .min(6, 'At least 6 symbols are required')
         .required('Password is required')
         .oneOf([Yup.ref('password'), null], 'Passwords do not match!'),
     }),

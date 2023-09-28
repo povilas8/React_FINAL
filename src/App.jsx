@@ -8,6 +8,7 @@ import { useAuth } from './store/AuthProvider';
 import { Toaster } from 'react-hot-toast';
 import CreateItem from './pages/CreateItem';
 import SingleItemPage from './pages/SingleItemPage';
+import ProfilePage from './pages/ProfilePage';
 
 export default function App() {
   const ctx = useAuth();
@@ -27,6 +28,12 @@ export default function App() {
         <Route
           path='/additem'
           element={ctx.isLoggedIn ? <CreateItem /> : <Navigate to={'/login'} />}
+        />
+        <Route
+          path='/myadds'
+          element={
+            ctx.isLoggedIn ? <ProfilePage /> : <Navigate to={'/myadds'} />
+          }
         />
         <Route
           path='/:itemId'

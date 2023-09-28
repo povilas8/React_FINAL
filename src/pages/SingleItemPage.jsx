@@ -6,15 +6,16 @@ import SingleItem from '../components/items/SingleItem';
 
 export default function SingleItemPage() {
   const params = useParams();
-  const [currentItemObj, setCurrentAddObj] = useState({});
+  const [currentItemObj, setCurrentItemObj] = useState({});
 
   useEffect(() => {
     async function getSingleDocumentFromFirebase() {
       const docRef = doc(db, 'shopitems', params.itemId);
+      console.log('params.itemId ===', params.itemId);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setCurrentAddObj(docSnap.data());
+        setCurrentItemObj(docSnap.data());
       } else {
         console.log('No such document!');
       }
@@ -26,7 +27,8 @@ export default function SingleItemPage() {
   function deleteFire(delId) {
     deleteDoc(doc(db, 'shopitems', delId))
       .then(() => {
-        currentItemObj();
+        // Tiesiogiai nukreipkite vartotoją atgal į pagrindinį puslapį
+        window.location.href = '/shops';
       })
       .catch((error) => {
         console.warn('ivyko klaida:', error);
@@ -38,7 +40,7 @@ export default function SingleItemPage() {
       <h1 className='text-3xl mb-4 pt-4 text-center'>Single Item Page</h1>
       <SingleItem
         item={currentItemObj}
-        onDelete={() => deleteFire(currentItemObj)}
+        onDelete={() => deleteFire(params.itemId)}
       />
     </div>
   );
