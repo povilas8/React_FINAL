@@ -9,6 +9,7 @@ import { Toaster } from 'react-hot-toast';
 import CreateItem from './pages/CreateItem';
 import SingleItemPage from './pages/SingleItemPage';
 import ProfilePage from './pages/ProfilePage';
+import MyAddsPage from './pages/MyAddsPage';
 
 export default function App() {
   const ctx = useAuth();
@@ -31,8 +32,12 @@ export default function App() {
         />
         <Route
           path='/myadds'
+          element={ctx.isLoggedIn ? <MyAddsPage /> : <Navigate to={'/login'} />}
+        />
+        <Route
+          path='/profile'
           element={
-            ctx.isLoggedIn ? <ProfilePage /> : <Navigate to={'/myadds'} />
+            ctx.isLoggedIn ? <ProfilePage /> : <Navigate to={'/login'} />
           }
         />
         <Route

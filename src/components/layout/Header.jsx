@@ -6,10 +6,11 @@ import toast from 'react-hot-toast';
 
 export default function Header() {
   const ctx = useAuth();
-  console.log('ctx ===', ctx);
   const isLoggedIn = ctx.isLoggedIn;
+  // const username = ctx.username;
   console.log('isLoggedIn ===', isLoggedIn);
-
+  // console.log('username ===', username);
+  // console.log('ctx.username ===', ctx.username);
   function logout() {
     const auth = getAuth();
 
@@ -78,6 +79,12 @@ export default function Header() {
               >
                 My Adds
               </NavLink>
+              <NavLink
+                to='/profile'
+                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+              >
+                Profile
+              </NavLink>
 
               <NavLink
                 onClick={handleLogout}
@@ -87,7 +94,7 @@ export default function Header() {
                 Logout
               </NavLink>
 
-              <p className='inline-block text-lg px-3'>{ctx.email}</p>
+              <p className='inline-block text-lg px-3'>{ctx.username}</p>
             </>
           )}
         </nav>

@@ -5,6 +5,7 @@ const AuthContext = createContext({
   email: '',
   isLoggedIn: '',
   userUid: '',
+  displayName: '',
 });
 
 AuthContext.displayName = 'Auth';
@@ -14,14 +15,20 @@ export default function AuthProvider(props) {
 
   const email = fireUser.email;
   const userUid = fireUser.uid;
+  const displayName = fireUser.displayName;
   let isLoggedIn = !!email;
   isLoggedIn = email ? true : false;
+
+  console.log('email ===', email);
 
   const ctx = {
     email: email,
     isLoggedIn: isLoggedIn,
     userUid: userUid,
+    username: displayName,
   };
+
+  console.log('username ===', ctx.username);
 
   useEffect(() => {
     const auth = getAuth();
@@ -43,6 +50,7 @@ export default function AuthProvider(props) {
   }, []);
 
   return (
+    // eslint-disable-next-line react/prop-types
     <AuthContext.Provider value={ctx}>{props.children}</AuthContext.Provider>
   );
 }

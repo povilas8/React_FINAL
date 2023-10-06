@@ -7,7 +7,6 @@ export default function SingleItem(props) {
   const ctx = useAuth();
 
   const myItems = item.userUid === ctx.userUid ? true : false;
-  console.log('myItems ===', myItems);
 
   return (
     <ul className='bg-slate-200 transform transition-transform hover:scale-105 transform-origin-center hover:shadow-lg'>
