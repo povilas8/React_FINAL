@@ -7,10 +7,7 @@ import toast from 'react-hot-toast';
 export default function Header() {
   const ctx = useAuth();
   const isLoggedIn = ctx.isLoggedIn;
-  // const username = ctx.username;
   console.log('isLoggedIn ===', isLoggedIn);
-  // console.log('username ===', username);
-  // console.log('ctx.username ===', ctx.username);
   function logout() {
     const auth = getAuth();
 

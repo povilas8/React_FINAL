@@ -11,6 +11,7 @@ export default function LoginForm() {
     initialValues: {
       email: 'povilas@feu8.com',
       password: 'feu999',
+      username: 'povilas',
     },
     validationSchema: Yup.object({
       email: Yup.string().email().required(),
@@ -28,7 +29,9 @@ export default function LoginForm() {
         toast.success('Login successfully');
         // Signed in
         const user = userCredential.user;
-        // ...
+        const username = user.displayName;
+
+        console.log('username ===', username); // Atspausdins vartotojo vardą
         console.log('user login ok ===', user);
         setTimeout(() => {
           navigate('/shops', { replace: true });
