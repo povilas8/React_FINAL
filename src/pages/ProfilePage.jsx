@@ -1,46 +1,34 @@
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState, useEffect } from 'react';
 import { getAuth, updateProfile } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function ProfilePage() {
   const [displayName, setDisplayName] = useState('');
-  const [avatarFile, setAvatarFile] = useState(null);
-  const [avatarURL, setAvatarURL] = useState(null);
+  const [avatarURL, setAvatarURL] = useState('');
+  const [avatarURLInput, setAvatarURLInput] = useState('');
 
   useEffect(() => {
     const auth = getAuth();
     const user = auth.currentUser;
+    console.log('auth.currentUser ===', auth.currentUser);
 
     if (user) {
       // Nustatykite pradinį 'displayName' state reikšmę pagal vartotojo profilio vardą
       setDisplayName(user.displayName || ''); // Jei displayName yra undefined, nustatome tuščią eilutę
+      setAvatarURL(user.photoURL || ''); // Nustatykite avataro nuorodą pagal vartotojo profilio nuorodą
     }
   }, []);
 
   // Funkcija vykdoma, kai vartotojas paspaudžia "Išsaugoti pakeitimus"
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async (e) => {
+    e.preventDefault(); // Sustabdo numatytąjį formos pateikimą
     const auth = getAuth();
-    const storage = getStorage(); // Inicializuojame Firebase Storage
     try {
       // Atnaujinti vartotojo vardą
       await updateProfile(auth.currentUser, {
         displayName: displayName,
+        photoURL: avatarURLInput || avatarURL, // Nustatykite photoURL su įvesta nuoroda arba esama nuoroda
       });
-
-      // Atnaujinti vartotojo avatarą, jei jis pasirinktas
-      if (avatarFile) {
-        const avatarStorageRef = ref(
-          storage,
-          `avatars/${auth.currentUser.uid}`
-        ); // Sukuriame Storage ref
-        await uploadBytes(avatarStorageRef, avatarFile); // Įkelkite failą į Storage
-        const avatarDownloadURL = await getDownloadURL(avatarStorageRef); // Gaukite nuotraukos URL
-
-        await updateProfile(auth.currentUser, {
-          photoURL: avatarDownloadURL,
-        });
-      }
 
       toast.success('Changes saved successfully.');
     } catch (error) {
@@ -54,12 +42,9 @@ export default function ProfilePage() {
     setDisplayName(e.target.value);
   };
 
-  // Funkcija vykdoma, kai pasikeičia vartotojo avataras
-  const handleAvatarChange = (event) => {
-    const file = event.target.files[0];
-    setAvatarFile(file);
-    const url = URL.createObjectURL(file);
-    setAvatarURL(url);
+  // Funkcija vykdoma, kai pasikeičia vartotojo avataro nuoroda
+  const handleAvatarURLChange = (e) => {
+    setAvatarURLInput(e.target.value);
   };
 
   return (
@@ -67,7 +52,7 @@ export default function ProfilePage() {
       <div className='bg-white mx-auto border-slate-500 p-8 shadow-md rounded-lg w-96'>
         <Toaster />
         <h2 className='text-2xl font-semibold mb-4'>Edit Profile</h2>
-        <form>
+        <form onSubmit={handleSaveChanges}>
           <div className='mb-5'>
             <label
               htmlFor='displayName'
@@ -85,28 +70,31 @@ export default function ProfilePage() {
           </div>
           <div className='mb-4'>
             <label
-              htmlFor='avatar'
+              htmlFor='avatarURL'
               className='block text-sm font-medium text-gray-700'
             >
-              Avatar
+              Avatar URL
             </label>
             <input
-              type='file'
-              id='avatar'
-              accept='image/*'
-              onChange={handleAvatarChange}
+              className='text-blue-300 border'
+              type='text'
+              id='avatarURL'
+              value={avatarURLInput}
+              onChange={handleAvatarURLChange}
             />
             {avatarURL && (
-              <img
-                src={avatarURL}
-                alt='Avatar Preview'
-                style={{ maxWidth: '100px' }}
-              />
+              <div className='mt-2'>
+                <h4 className='text-blue-300'>Current avatar</h4>
+                <img
+                  src={avatarURL}
+                  alt='Avatar Preview'
+                  style={{ maxWidth: '200px' }}
+                />
+              </div>
             )}
           </div>
           <button
             type='submit'
-            onClick={handleSaveChanges}
             className='bg-slate-300 hover:bg-slate-400 drop-shadow-md px-4 py-2 rounded-md'
           >
             Save Changes

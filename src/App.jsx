@@ -19,13 +19,9 @@ export default function App() {
       <Toaster />
       <Header />
       <Routes>
-        {/* {ctx.isLoggedIn && ( */}
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/' element={<LoginPage />} />
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/shops' element={<ShopsPage />} />
-        <Route path='/:itemId' element={<SingleItemPage />} />
-        <Route path='/additem' element={<CreateItem />} />
         <Route
           path='/additem'
           element={ctx.isLoggedIn ? <CreateItem /> : <Navigate to={'/login'} />}
@@ -35,14 +31,20 @@ export default function App() {
           element={ctx.isLoggedIn ? <MyAddsPage /> : <Navigate to={'/login'} />}
         />
         <Route
+          path='/:itemId'
+          element={
+            ctx.isLoggedIn ? <SingleItemPage /> : <Navigate to={'/login'} />
+          }
+        />
+        <Route
+          path='/shops'
+          element={ctx.isLoggedIn ? <ShopsPage /> : <Navigate to={'/login'} />}
+        />
+        <Route
           path='/profile'
           element={
             ctx.isLoggedIn ? <ProfilePage /> : <Navigate to={'/login'} />
           }
-        />
-        <Route
-          path='/:itemId'
-          element={ctx.isLoggedIn ? <ShopsPage /> : <Navigate to={'/login'} />}
         />
         <Route
           path='/single'
@@ -55,19 +57,4 @@ export default function App() {
       <Footer />
     </div>
   );
-}
-
-{
-  /* <Routes>
-  {ctx.isLoggedIn && (
-    <>
-      <Route path='/additem' element={<CreateItem />} />
-      <Route path='/items/:itemId' element={<SingleItemPage />} />
-    </>
-  )}
-  <Route path='/' element={<LoginPage />} />
-  <Route path='/shops' element={<ShopsPage />} />
-  <Route path='/register' element={<RegisterPage />} />
-  <Route path='/login' element={<LoginPage />} />
-</Routes>; */
 }

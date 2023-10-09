@@ -1,7 +1,6 @@
 import { NavLink, Navigate } from 'react-router-dom';
 import { useAuth } from '../../store/AuthProvider';
 import { signOut, getAuth } from 'firebase/auth';
-// import { auth } from '../../firebase/firebase';
 import toast from 'react-hot-toast';
 
 export default function Header() {
