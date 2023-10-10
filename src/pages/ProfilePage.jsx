@@ -13,13 +13,11 @@ export default function ProfilePage() {
     console.log('auth.currentUser ===', auth.currentUser);
 
     if (user) {
-      // Nustatykite pradinį 'displayName' state reikšmę pagal vartotojo profilio vardą
-      setDisplayName(user.displayName || ''); // Jei displayName yra undefined, nustatome tuščią eilutę
-      setAvatarURL(user.photoURL || ''); // Nustatykite avataro nuorodą pagal vartotojo profilio nuorodą
+      setDisplayName(user.displayName || '');
+      setAvatarURL(user.photoURL || '');
     }
   }, []);
 
-  // Funkcija vykdoma, kai vartotojas paspaudžia "Išsaugoti pakeitimus"
   const handleSaveChanges = async (e) => {
     e.preventDefault(); // Sustabdo numatytąjį formos pateikimą
     const auth = getAuth();
@@ -27,10 +25,12 @@ export default function ProfilePage() {
       // Atnaujinti vartotojo vardą
       await updateProfile(auth.currentUser, {
         displayName: displayName,
-        photoURL: avatarURLInput || avatarURL, // Nustatykite photoURL su įvesta nuoroda arba esama nuoroda
+        photoURL: avatarURLInput || avatarURL,
       });
-
-      toast.success('Changes saved successfully.');
+      toast.success('Profile has been updated');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.error('Error updating profile:', error);
       toast.error('Failed to save changes.');
