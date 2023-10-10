@@ -6,6 +6,7 @@ const AuthContext = createContext({
   isLoggedIn: '',
   userUid: '',
   displayName: '',
+  avatar: '',
 });
 
 AuthContext.displayName = 'Auth';
@@ -16,6 +17,7 @@ export default function AuthProvider(props) {
   const email = fireUser.email;
   const userUid = fireUser.uid;
   const displayName = fireUser.displayName;
+  const avatar = fireUser.photoURL;
   let isLoggedIn = !!email;
   isLoggedIn = email ? true : false;
 
@@ -26,6 +28,7 @@ export default function AuthProvider(props) {
     isLoggedIn: isLoggedIn,
     userUid: userUid,
     username: displayName,
+    userAvatar: avatar,
   };
 
   console.log('username ===', ctx.username);

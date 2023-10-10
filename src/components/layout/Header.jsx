@@ -91,6 +91,11 @@ export default function Header() {
               </NavLink>
 
               <p className='inline-block text-lg px-3'>{ctx.username}</p>
+              <img
+                className='inline-block w-12 rounded-full'
+                src={ctx.userAvatar}
+                alt=''
+              />
             </>
           )}
         </nav>
