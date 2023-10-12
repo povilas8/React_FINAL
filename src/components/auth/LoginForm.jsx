@@ -31,7 +31,7 @@ export default function LoginForm() {
         const user = userCredential.user;
         const username = user.displayName;
 
-        console.log('username ===', username); // Atspausdins vartotojo vardą
+        console.log('username ===', username);
         console.log('user login ok ===', user);
         setTimeout(() => {
           navigate('/shops', { replace: true });

@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useAuth } from '../../store/AuthProvider';
+import CommentForm from '../auth/CommentForm';
+import CommentList from '../auth/CommentsList';
 
 export default function SingleItem(props) {
   const { attachement, title, price, description, stock, userUid } = props.item;
@@ -39,6 +41,8 @@ export default function SingleItem(props) {
           delete
         </button>
       )}
+      <CommentList />
+      <CommentForm />
     </ul>
   );
 }
