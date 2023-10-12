@@ -18,10 +18,10 @@ export default function AuthProvider(props) {
   const userUid = fireUser.uid;
   const displayName = fireUser.displayName;
   const avatar = fireUser.photoURL;
-  let isLoggedIn = !!email;
-  isLoggedIn = email ? true : false;
+  let isLoggedIn = !!fireUser.email;
+  // isLoggedIn = fireUser.email ? true : false;
 
-  console.log('email ===', email);
+  console.log('fireUser.email ===', fireUser.email);
 
   const ctx = {
     email: email,

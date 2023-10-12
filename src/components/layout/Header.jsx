@@ -38,12 +38,37 @@ export default function Header() {
           {!ctx.isLoggedIn && (
             <>
               <NavLink
+                to='/shops'
+                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+              >
+                Shops
+              </NavLink>
+
+              <NavLink
+                to={'/additem'}
+                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+              >
+                Add Item
+              </NavLink>
+
+              <NavLink
+                to='/myadds'
+                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+              >
+                My Adds
+              </NavLink>
+              <NavLink
+                to='/profile'
+                className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+              >
+                Profile
+              </NavLink>
+              <NavLink
                 to='/login'
                 className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
               >
                 Login
               </NavLink>
-
               <NavLink
                 to={'/register'}
                 className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
@@ -56,7 +81,7 @@ export default function Header() {
           {ctx.isLoggedIn && (
             <>
               <NavLink
-                to={'/shops'}
+                to='/shops'
                 className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
               >
                 Shops
@@ -94,7 +119,7 @@ export default function Header() {
               <img
                 className='inline-block w-12 rounded-full'
                 src={ctx.userAvatar}
-                alt=''
+                alt='user avatar icon'
               />
             </>
           )}

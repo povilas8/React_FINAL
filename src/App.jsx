@@ -12,54 +12,6 @@ import ProfilePage from './pages/ProfilePage';
 import MyAddsPage from './pages/MyAddsPage';
 import { useEffect, useState } from 'react';
 
-// export default function App() {
-//   const ctx = useAuth();
-
-//   return (
-//     <div>
-//       <Toaster />
-//       <Header />
-//       <Routes>
-//         <Route path='/register' element={<RegisterPage />} />
-//         <Route path='/' element={<LoginPage />} />
-//         <Route path='/login' element={<LoginPage />} />
-//         <Route
-//           path='/additem'
-//           element={ctx.isLoggedIn ? <CreateItem /> : <Navigate to={'/login'} />}
-//         />
-//         <Route
-//           path='/myadds'
-//           element={ctx.isLoggedIn ? <MyAddsPage /> : <Navigate to={'/login'} />}
-//         />
-//         <Route
-//           path='/:itemId'
-//           element={
-//             ctx.isLoggedIn ? <SingleItemPage /> : <Navigate to={'/login'} />
-//           }
-//         />
-//         <Route
-//           path='/shops'
-//           element={ctx.isLoggedIn ? <ShopsPage /> : <Navigate to={'/login'} />}
-//         />
-//         <Route
-//           path='/profile'
-//           element={
-//             ctx.isLoggedIn ? <ProfilePage /> : <Navigate to={'/login'} />
-//           }
-//         />
-//         <Route
-//           path='/single'
-//           element={
-//             ctx.isLoggedIn ? <SingleItemPage /> : <Navigate to={'/login'} />
-//           }
-//         />
-//         <Route path='/logout' element={<LoginPage />} />
-//       </Routes>
-//       <Footer />
-//     </div>
-//   );
-// }
-
 export default function App() {
   const ctx = useAuth();
   const [isLoading, setIsLoading] = useState(true);
@@ -87,61 +39,36 @@ export default function App() {
         <p>Loading...</p>
       ) : (
         <div>
-          <div>
-            <Toaster />
-            <Header />
-            <Routes>
-              <Route path='/register' element={<RegisterPage />} />
-              <Route path='/' element={<LoginPage />} />
-              <Route path='/login' element={<LoginPage />} />
-              <Route
-                path='/additem'
-                element={
-                  ctx.isLoggedIn ? <CreateItem /> : <Navigate to={'/login'} />
-                }
-              />
-              <Route
-                path='/myadds'
-                element={
-                  ctx.isLoggedIn ? <MyAddsPage /> : <Navigate to={'/login'} />
-                }
-              />
-              <Route
-                path='/:itemId'
-                element={
-                  ctx.isLoggedIn ? (
-                    <SingleItemPage />
-                  ) : (
-                    <Navigate to={'/login'} />
-                  )
-                }
-              />
-              <Route
-                path='/shops'
-                element={
-                  ctx.isLoggedIn ? <ShopsPage /> : <Navigate to={'/login'} />
-                }
-              />
-              <Route
-                path='/profile'
-                element={
-                  ctx.isLoggedIn ? <ProfilePage /> : <Navigate to={'/login'} />
-                }
-              />
-              <Route
-                path='/single'
-                element={
-                  ctx.isLoggedIn ? (
-                    <SingleItemPage />
-                  ) : (
-                    <Navigate to={'/login'} />
-                  )
-                }
-              />
-              <Route path='/logout' element={<LoginPage />} />
-            </Routes>
-            <Footer />
-          </div>
+          <Toaster />
+          <Header />
+          <Routes>
+            <Route path='/' element={<ShopsPage />} />
+            <Route path='/shops' element={<ShopsPage />} />
+            <Route path='/register' element={<RegisterPage />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/:itemId' element={<SingleItemPage />} />
+
+            <Route
+              path='/additem'
+              element={
+                ctx.isLoggedIn ? <CreateItem /> : <Navigate to={'/login'} />
+              }
+            />
+            <Route
+              path='/myadds'
+              element={
+                ctx.isLoggedIn ? <MyAddsPage /> : <Navigate to={'/login'} />
+              }
+            />
+            <Route
+              path='/profile'
+              element={
+                ctx.isLoggedIn ? <ProfilePage /> : <Navigate to={'/login'} />
+              }
+            />
+            <Route path='/logout' element={<ShopsPage />} />
+          </Routes>
+          <Footer />
         </div>
       )}
     </div>

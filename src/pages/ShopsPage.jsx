@@ -6,22 +6,22 @@ import ItemsList from '../components/items/ItemsList';
 export default function ShopsPage() {
   const [itemsArr, setItemsArr] = useState([]);
 
+  useEffect(() => {
+    getAdds();
+  }, []);
+
   async function getAdds() {
     const querySnapshot = await getDocs(collection(db, 'shopitems'));
     const dataBack = [];
     querySnapshot.forEach((doc) => {
-      const itemData = {
+      dataBack.push({
         id: doc.id,
         ...doc.data(),
-      };
-
-      dataBack.push(itemData);
+      });
     });
+    console.log('dataBack ===', dataBack);
     setItemsArr(dataBack);
   }
-  useEffect(() => {
-    getAdds();
-  }, []);
 
   function deleteFire(delId) {
     deleteDoc(doc(db, 'shopitems', delId))
