@@ -8,11 +8,13 @@ import {
 } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../../store/AuthProvider';
 
 export default function CommentList() {
   const [commentsArr, setCommentsArr] = useState([]);
   const [loading, setLoading] = useState(true);
   const params = useParams();
+  const ctx = useAuth();
 
   useEffect(() => {
     setLoading(true);
@@ -23,12 +25,6 @@ export default function CommentList() {
     const querySnapshot = await getDocs(
       collection(db, 'shopitems', params.itemId, 'comments')
     );
-    // const commentsQuery = query(
-    //   commentsCollection,
-    //   orderBy('timestamp', 'asc')
-    // );
-    // const querySnapshot = await getDocs(commentsQuery);
-    // const commentData = querySnapshot.docs.map((doc) => doc.data());
 
     const dataBack = [];
     querySnapshot.forEach((doc) => {
@@ -39,62 +35,9 @@ export default function CommentList() {
     });
     console.table('dataBack ===', dataBack);
     setCommentsArr(dataBack);
+    setLoading(false); // Nustatomas loading į false, kai komentarai yra gauti
   }
 
-  //   function deleteFire(delId) {
-  //     deleteDoc(collection(db, 'shopitems', params.itemId, 'comments', delId))
-  //       .then(() => {
-  //         getComments();
-  //       })
-  //       .catch((error) => {
-  //         console.warn('ivyko klaida:', error);
-  //       });
-  //   }
-
-  //   useEffect(() => {
-  //     const fetchComments = async () => {
-  //       try {
-  //         setLoading(true);
-
-  //         const commentsCollection = collection(
-  //           db,
-  //           'shopitems',
-  //           params.itemId,
-  //           'comments'
-  //         );
-  //         const commentsQuery = query(
-  //           commentsCollection,
-  //           orderBy('timestamp', 'asc')
-  //         );
-  //         const querySnapshot = await getDocs(commentsQuery);
-  //         const commentData = querySnapshot.docs.map((doc) => doc.data());
-
-  //         setComments(commentData);
-  //         setLoading(false);
-  //       } catch (error) {
-  //         console.error('Error fetching comments: ', error);
-  //       }
-  //     };
-
-  //     fetchComments();
-  //   }, []);
-
-  //   useEffect(() => {
-  //     const commentsCollection = collection(
-  //       db,
-  //       'shopitems',
-  //       params.itemId,
-  //       'comments'
-  //     );
-  //     const unsubscribe = onSnapshot(commentsCollection, (snapshot) => {
-  //       const newComments = snapshot.docs.map((doc) => doc.data());
-  //       setComments(newComments);
-  // });
-  // }
-
-  //     return () => unsubscribe();
-  //   }, [params.itemId]);
-  //   console.log(comments);
   return (
     <div className='mt-8'>
       <h2 className='text-2xl font-semibold mb-4'>Customer Comments:</h2>
@@ -108,7 +51,7 @@ export default function CommentList() {
           {commentsArr.map((comment, index) => (
             <li key={index} className='bg-white rounded-lg shadow-md p-4 mb-4'>
               <div className='flex justify-between items-center mb-2'>
-                <span className='font-semibold'>{comment.email}</span>
+                <span className='font-semibold'>{ctx.username}</span>
                 <span className='text-gray-500 text-sm'>
                   {comment.timestamp.toDate().toLocaleString(undefined, {
                     year: 'numeric',

@@ -18,16 +18,19 @@ export default function CommentForm() {
   const formik = useFormik({
     initialValues: {
       text: '',
+      username: user ? user.username : '',
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
-        const userData = user ? { email: user.email } : {};
+        const userData = user ? { username: user.username } : {};
         const commentData = {
           ...userData,
+          username: values.username,
           text: values.text,
           timestamp: new Date(),
         };
+        console.log('userData ===', userData);
         console.log('commentData ===', commentData);
         const commentsCollection = collection(
           db,
