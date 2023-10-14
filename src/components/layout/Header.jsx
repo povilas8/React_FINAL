@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 
 export default function Header() {
   const ctx = useAuth();
+  console.log('ctx ===', ctx);
   const isLoggedIn = ctx.isLoggedIn;
   console.log('isLoggedIn ===', isLoggedIn);
   function logout() {

@@ -4,17 +4,15 @@ import {
   getDocs,
   //   orderBy,
   //   query,
-  //   onSnapshot,
+  onSnapshot,
 } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
 import { useParams } from 'react-router-dom';
-import { useAuth } from '../../store/AuthProvider';
 
 export default function CommentList() {
   const [commentsArr, setCommentsArr] = useState([]);
   const [loading, setLoading] = useState(true);
   const params = useParams();
-  const ctx = useAuth();
 
   useEffect(() => {
     setLoading(true);
@@ -35,7 +33,23 @@ export default function CommentList() {
     });
     console.table('dataBack ===', dataBack);
     setCommentsArr(dataBack);
-    setLoading(false); // Nustatomas loading į false, kai komentarai yra gauti
+    setLoading(false);
+
+    // Pradedame stebėti komentarus realiuoju laiku
+    const commentsRef = collection(db, 'shopitems', params.itemId, 'comments');
+    const updatingComments = onSnapshot(commentsRef, (snapshot) => {
+      // Įvyksta kai pateikiamas naujas komentaras
+      const newComments = [];
+      snapshot.forEach((doc) => {
+        newComments.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setCommentsArr(newComments);
+    });
+
+    return updatingComments; // Stebėjimas baigiamas kai informacija yra atnaujinama
   }
 
   return (
@@ -51,7 +65,7 @@ export default function CommentList() {
           {commentsArr.map((comment, index) => (
             <li key={index} className='bg-white rounded-lg shadow-md p-4 mb-4'>
               <div className='flex justify-between items-center mb-2'>
-                <span className='font-semibold'>{ctx.username}</span>
+                <span className='font-semibold'>{comment.username}</span>
                 <span className='text-gray-500 text-sm'>
                   {comment.timestamp.toDate().toLocaleString(undefined, {
                     year: 'numeric',

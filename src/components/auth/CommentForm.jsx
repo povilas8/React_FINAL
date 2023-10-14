@@ -8,8 +8,9 @@ import * as Yup from 'yup';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function CommentForm() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const params = useParams();
+  const ctx = useAuth();
 
   const validationSchema = Yup.object().shape({
     text: Yup.string().min(6, 'Comment must be at least 6 characters'),
@@ -18,12 +19,12 @@ export default function CommentForm() {
   const formik = useFormik({
     initialValues: {
       text: '',
-      username: user ? user.username : '',
+      username: ctx.username,
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
-        const userData = user ? { username: user.username } : {};
+        const userData = ctx.username;
         const commentData = {
           ...userData,
           username: values.username,
