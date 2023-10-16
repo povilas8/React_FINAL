@@ -21,8 +21,6 @@ export default function AuthProvider(props) {
   let isLoggedIn = !!fireUser.email;
   // isLoggedIn = fireUser.email ? true : false;
 
-  console.log('fireUser.email ===', fireUser.email);
-
   const ctx = {
     email: email,
     isLoggedIn: isLoggedIn,
@@ -30,8 +28,6 @@ export default function AuthProvider(props) {
     username: displayName,
     userAvatar: avatar,
   };
-
-  console.log('username ===', ctx.username);
 
   useEffect(() => {
     const auth = getAuth();

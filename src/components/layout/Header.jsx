@@ -119,7 +119,10 @@ export default function Header() {
               <p className='inline-block text-lg px-3'>{ctx.username}</p>
               <img
                 className='inline-block w-12 rounded-full'
-                src={ctx.userAvatar}
+                src={
+                  ctx.userAvatar ||
+                  'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png'
+                }
                 alt='user avatar icon'
               />
             </>
