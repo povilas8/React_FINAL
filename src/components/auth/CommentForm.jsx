@@ -23,29 +23,33 @@ export default function CommentForm() {
     },
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
-      try {
-        const userData = ctx.username;
-        const commentData = {
-          ...userData,
-          username: values.username,
-          text: values.text,
-          timestamp: new Date(),
-        };
-        console.log('userData ===', userData);
-        console.log('commentData ===', commentData);
-        const commentsCollection = collection(
-          db,
-          'shopitems',
-          params.itemId,
-          'comments'
-        );
-        await addDoc(commentsCollection, commentData);
+      if (ctx.isLoggedIn) {
+        try {
+          const userData = ctx.username;
+          const commentData = {
+            ...userData,
+            username: values.username,
+            text: values.text,
+            timestamp: new Date(),
+          };
+          console.log('userData ===', userData);
+          console.log('commentData ===', commentData);
+          const commentsCollection = collection(
+            db,
+            'shopitems',
+            params.itemId,
+            'comments'
+          );
+          await addDoc(commentsCollection, commentData);
 
-        console.log('commentData', commentData);
+          console.log('commentData', commentData);
 
-        resetForm();
-      } catch (error) {
-        toast.error('Error adding comment', error);
+          resetForm();
+        } catch (error) {
+          toast.error('Error adding comment', error);
+        }
+      } else {
+        toast.error('Please login to comment');
       }
     },
   });
@@ -53,29 +57,36 @@ export default function CommentForm() {
   return (
     <div className='mt-4'>
       <Toaster />
-      <form onSubmit={formik.handleSubmit}>
-        <h3 className='text-lg font-semibold mb-2'>Leave a Comment</h3>
-        <div className='mb-4'>
-          <textarea
-            name='text'
-            placeholder='Your comment'
-            rows='3'
-            className='w-full border rounded-md p-2'
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.text}
-          />
-          {formik.touched.text && formik.errors.text && (
-            <div className='text-red-500'>{formik.errors.text}</div>
-          )}
-        </div>
-        <button
-          type='submit'
-          className='bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600'
-        >
-          Submit
-        </button>
-      </form>
+      {!ctx.isLoggedIn && (
+        <p className='text-gray-500 text-xl mt-4 mb-4'>
+          Please login to comment
+        </p>
+      )}
+      {ctx.isLoggedIn && (
+        <form onSubmit={formik.handleSubmit}>
+          <h3 className='text-lg font-semibold mb-2'>Leave a Comment</h3>
+          <div className='mb-4'>
+            <textarea
+              name='text'
+              placeholder='Your comment'
+              rows='3'
+              className='w-full border rounded-md p-2'
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.text}
+            />
+            {formik.touched.text && formik.errors.text && (
+              <div className='text-red-500'>{formik.errors.text}</div>
+            )}
+          </div>
+          <button
+            type='submit'
+            className='bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600'
+          >
+            Submit
+          </button>
+        </form>
+      )}
     </div>
   );
 }

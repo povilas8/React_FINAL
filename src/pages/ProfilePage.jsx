@@ -95,6 +95,7 @@ export default function ProfilePage() {
             <div className='mt-2'>
               <h4 className='text-blue-300'>Selected avatar</h4>
               <img
+                className='mb-4'
                 src={URL.createObjectURL(avatar)}
                 alt='Avatar Preview'
                 style={{ maxWidth: '200px' }}
