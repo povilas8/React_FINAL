@@ -36,7 +36,7 @@ export default function ShopsPage() {
   return (
     <div>
       <h1 className='text-3xl mb-8 pt-4 text-center drop-shadow-lg'>Shops</h1>
-      <ul className='container grid grid-cols-3 gap-4 pb-10'>
+      <ul className='container grid grid-cols-3 gap-6 pb-10'>
         {itemsArr.map((item) => (
           <ItemsList
             key={item.id}

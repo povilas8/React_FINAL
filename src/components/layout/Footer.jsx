@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer>
       <div>
-        <div className='pl-24 pr-24 bg-slate-400 grid grid-cols-2 md:grid-cols-4 gap-4 py-4'>
+        <div className='pl-4 pr-4 bg-slate-400 grid grid-cols-2 md:grid-cols-4 gap-4 py-4 md:pl-14'>
           <div>
             <h2 className='font-bold pb-3'>Company information</h2>
             <p>Our Team</p>
@@ -58,7 +58,11 @@ export default function Footer() {
           </div>
           <div>
             <h2 className='font-bold pb-3'>Contact Us</h2>
-            <p>Email: blackberry@bancrupsy.com</p>
+            <p>
+              Email: blackberry@
+              <br />
+              bancrupsy.com
+            </p>
             <p>Phone: +123 456 789</p>
           </div>
         </div>

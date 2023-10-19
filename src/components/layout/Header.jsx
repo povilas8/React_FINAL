@@ -1,9 +1,12 @@
 import { NavLink, Navigate } from 'react-router-dom';
 import { useAuth } from '../../store/AuthProvider';
 import { signOut, getAuth } from 'firebase/auth';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 export default function Header() {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const ctx = useAuth();
   console.log('ctx ===', ctx);
   const isLoggedIn = ctx.isLoggedIn;
@@ -30,12 +33,18 @@ export default function Header() {
     <header className=' bg-slate-200 py-2'>
       <div className='container flex justify-between'>
         <img
-          className='max-w-[15%]'
+          className='w-44 sm:w-44 md:w-48 lg:w-56'
           src='https://cdn.freebiesupply.com/logos/large/2x/blackberry-logo-png-transparent.png'
           alt='BlackBerry logo'
         />
 
-        <nav className='place-self-center'>
+        <nav
+          className={`md:block ${
+            isMobileOpen
+              ? 'flex flex-col absolute top-9 bg-slate-200 right-0'
+              : 'hidden'
+          }`}
+        >
           {!ctx.isLoggedIn && (
             <>
               <NavLink
@@ -128,6 +137,9 @@ export default function Header() {
             </>
           )}
         </nav>
+        <div className='block md:hidden place-self-center'>
+          <GiHamburgerMenu onClick={() => setIsMobileOpen(!isMobileOpen)} />
+        </div>
       </div>
     </header>
   );
