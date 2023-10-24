@@ -32,19 +32,25 @@ export default function Header() {
   return (
     <header className=' bg-slate-200 py-2'>
       <div className='md:hidden container'>
-        <img
-          className='w-44 sm:w-44 md:w-48 lg:w-56 inline-block'
-          src='https://cdn.freebiesupply.com/logos/large/2x/blackberry-logo-png-transparent.png'
-          alt='BlackBerry logo'
-        />
-        <div className='flex float-right place-items-center'>
-          <GiHamburgerMenu onClick={() => setIsMobileOpen(!isMobileOpen)} />
+        <div className='w-44 inline-block'>
+          <img
+            src='https://cdn.freebiesupply.com/logos/large/2x/blackberry-logo-png-transparent.png'
+            alt='BlackBerry logo'
+          />
         </div>
-        <div className='justify-center items-center'>
+
+        <button
+          className='float-right p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 shadow-md transition-transform transform hover:scale-105 focus:outline-none'
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+        >
+          <GiHamburgerMenu />
+        </button>
+
+        <div className=''>
           <nav
             className={`md:block ${
               isMobileOpen
-                ? 'flex flex-col top-9 bg-slate-200 justify-center items-center'
+                ? 'flex flex-col top-9 bg-slate-200 items-center'
                 : 'hidden'
             }`}
           >
@@ -142,7 +148,7 @@ export default function Header() {
           </nav>
         </div>
       </div>
-      <div className='container flex justify-between'>
+      <div className='container flex justify-between items-center'>
         <img
           className='hidden md:block w-44 sm:w-44 md:w-48 lg:w-56'
           src='https://cdn.freebiesupply.com/logos/large/2x/blackberry-logo-png-transparent.png'
@@ -150,7 +156,7 @@ export default function Header() {
         />
 
         {/* Full desktop menu but hidden in mobile */}
-        <div className='justify-center items-center'>
+        <div className='justify-center'>
           <nav className={`md:block hidden ${isMobileOpen}`}>
             {!ctx.isLoggedIn && (
               <>
