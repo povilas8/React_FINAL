@@ -8,6 +8,10 @@ import toast from 'react-hot-toast';
 export default function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const ctx = useAuth();
+  const handleLinkClick = () => {
+    // Close the mobile menu when a link is clicked
+    setIsMobileOpen(false);
+  };
   console.log('ctx ===', ctx);
   const isLoggedIn = ctx.isLoggedIn;
   console.log('isLoggedIn ===', isLoggedIn);
@@ -46,12 +50,12 @@ export default function Header() {
           <GiHamburgerMenu />
         </button>
 
-        <div className=''>
+        <div>
           <nav
-            className={`md:block transition-max-h duration-500 flex flex-col ${
+            className={`md:block transition-all duration-500 ease-in-out transform flex flex-col ${
               isMobileOpen
-                ? 'max-h-96 top-9 bg-slate-200 items-center'
-                : 'max-h-0 collapse items-center'
+                ? 'max-h-96 items-center translate-y-0 opacity-100 visible pt-2'
+                : 'max-h-0 items-center -translate-y-full opacity-0 invisible'
             }`}
           >
             {!ctx.isLoggedIn && (
@@ -59,6 +63,7 @@ export default function Header() {
                 <NavLink
                   to='/shops'
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   Shops
                 </NavLink>
@@ -66,6 +71,7 @@ export default function Header() {
                 <NavLink
                   to={'/additem'}
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   Add Item
                 </NavLink>
@@ -73,24 +79,28 @@ export default function Header() {
                 <NavLink
                   to='/myadds'
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   My Adds
                 </NavLink>
                 <NavLink
                   to='/profile'
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   Profile
                 </NavLink>
                 <NavLink
                   to='/login'
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   Login
                 </NavLink>
                 <NavLink
                   to={'/register'}
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   Register
                 </NavLink>
@@ -102,6 +112,7 @@ export default function Header() {
                 <NavLink
                   to='/shops'
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   Shops
                 </NavLink>
@@ -109,6 +120,7 @@ export default function Header() {
                 <NavLink
                   to={'/additem'}
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   Add Item
                 </NavLink>
@@ -116,18 +128,23 @@ export default function Header() {
                 <NavLink
                   to='/myadds'
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   My Adds
                 </NavLink>
                 <NavLink
                   to='/profile'
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
+                  onClick={handleLinkClick}
                 >
                   Profile
                 </NavLink>
 
                 <NavLink
-                  onClick={handleLogout}
+                  onClick={() => {
+                    handleLogout();
+                    handleLinkClick();
+                  }}
                   to='/logout'
                   className='hover:bg-slate-400 drop-shadow-lg px-3 py-4'
                 >
