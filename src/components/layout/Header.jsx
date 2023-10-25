@@ -40,7 +40,7 @@ export default function Header() {
         </div>
 
         <button
-          className='float-right p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 shadow-md transition-transform transform hover:scale-105 focus:outline-none'
+          className='float-right p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 shadow-md'
           onClick={() => setIsMobileOpen(!isMobileOpen)}
         >
           <GiHamburgerMenu />
@@ -48,10 +48,10 @@ export default function Header() {
 
         <div className=''>
           <nav
-            className={`md:block ${
+            className={`md:block transition-max-h duration-500 flex flex-col ${
               isMobileOpen
-                ? 'flex flex-col top-9 bg-slate-200 items-center'
-                : 'hidden'
+                ? 'max-h-96 top-9 bg-slate-200 items-center'
+                : 'max-h-0 collapse items-center'
             }`}
           >
             {!ctx.isLoggedIn && (
