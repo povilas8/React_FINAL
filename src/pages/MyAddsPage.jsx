@@ -52,7 +52,7 @@ export default function MyAddsPage() {
   }
 
   return (
-    <div>
+    <div className='bg-slate-100'>
       <h1 className='text-3xl mb-8 pt-4 text-center drop-shadow-lg'>My Adds</h1>
       <ul className='container grid grid-cols-3 gap-4 pb-10'>
         {itemsArr.map((item) => (

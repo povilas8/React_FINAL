@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useAuth } from '../store/AuthProvider';
+import { useAuth } from '../../store/AuthProvider';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebase/firebase';
+import { db } from '../../firebase/firebase';
 import toast from 'react-hot-toast';
 import { useRef } from 'react';
 
-export default function CreateItem() {
+export default function CreateItemForm() {
   const ctx = useAuth();
   const inputRef = useRef(null);
 

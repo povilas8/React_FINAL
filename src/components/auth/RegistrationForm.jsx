@@ -92,68 +92,71 @@ export default function RegistrationForm() {
   });
 
   return (
-    <div className='mx-auto mb-20 border border-slate-500 p-8 shadow-md rounded-sm w-96'>
-      <Toaster />
-      <h2>Register new account</h2>
-      <form onSubmit={formik.handleSubmit} className='max-w-xs'>
-        <input
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.username}
-          className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
-          type='text'
-          placeholder='Username'
-          id='username'
-        />
-        {formik.errors.username && formik.touched.username && (
-          <p className='text-md text-red-500'>{formik.errors.username}</p>
-        )}
-        <input
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-          className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
-          type='text'
-          placeholder='Email'
-          id='email'
-        />
-        {formik.errors.email && formik.touched.email && (
-          <p className='text-md text-red-500'>{formik.errors.email}</p>
-        )}
-        <input
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.password}
-          className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
-          type='password'
-          placeholder='Password'
-          id='password'
-        />
-        {formik.errors.password && formik.touched.password && (
-          <p className='text-md text-red-500 '>{formik.errors.password}</p>
-        )}
-        <input
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.repeatPassword}
-          className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
-          type='password'
-          placeholder='Repeat password'
-          id='repeatPassword'
-        />
-        {formik.errors.repeatPassword && formik.touched.repeatPassword && (
-          <p className='text-md text-red-500 '>
-            {formik.errors.repeatPassword}
-          </p>
-        )}
+    <div>
+      <h1 className='container text-2xl mb-4 mt-7 text-center'>Register</h1>
+      <div className='container text-center mt-5 mx-auto mb-20 border border-slate-500 p-8 shadow-md rounded-sm w-96'>
+        <Toaster />
+        <h2>Register new account</h2>
+        <form onSubmit={formik.handleSubmit} className='max-w-xs'>
+          <input
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.username}
+            className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
+            type='text'
+            placeholder='Username'
+            id='username'
+          />
+          {formik.errors.username && formik.touched.username && (
+            <p className='text-md text-red-500'>{formik.errors.username}</p>
+          )}
+          <input
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+            className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
+            type='text'
+            placeholder='Email'
+            id='email'
+          />
+          {formik.errors.email && formik.touched.email && (
+            <p className='text-md text-red-500'>{formik.errors.email}</p>
+          )}
+          <input
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
+            type='password'
+            placeholder='Password'
+            id='password'
+          />
+          {formik.errors.password && formik.touched.password && (
+            <p className='text-md text-red-500 '>{formik.errors.password}</p>
+          )}
+          <input
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.repeatPassword}
+            className='mb-2 border border-slate-500 px-4 py-2 w-full rounded-md'
+            type='password'
+            placeholder='Repeat password'
+            id='repeatPassword'
+          />
+          {formik.errors.repeatPassword && formik.touched.repeatPassword && (
+            <p className='text-md text-red-500 '>
+              {formik.errors.repeatPassword}
+            </p>
+          )}
 
-        <button
-          className='bg-slate-300 hover:bg-slate-400 drop-shadow-md px-4 py-2 rounded-md'
-          type='submit'
-        >
-          Register
-        </button>
-      </form>
+          <button
+            className='bg-slate-300 hover:bg-slate-400 drop-shadow-md px-4 py-2 rounded-md'
+            type='submit'
+          >
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

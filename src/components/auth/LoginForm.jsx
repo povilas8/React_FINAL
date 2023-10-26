@@ -46,45 +46,50 @@ export default function LoginForm() {
   }
 
   return (
-    <div className='mx-auto mb-20 border border-slate-500 p-8 shadow-md rounded-sm w-96'>
-      <Toaster />
-      <form onSubmit={formik.handleSubmit} className='max-w-xs'>
-        <div className='mb-2'>
-          <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-            className='border border-slate-500 px-4 py-2 w-full rounded-md'
-            type='text'
-            id='email'
-            placeholder='Email'
-          />
-          {formik.errors.email && formik.touched.email && (
-            <p className='text-md text-red-500 '>{formik.errors.email}</p>
-          )}
-        </div>
-        <div className='mb-2'>
-          <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            className='border border-slate-500 px-4 py-2 w-full rounded-md'
-            type='password'
-            id='password'
-            placeholder='Password'
-          />
-          {formik.errors.password && formik.touched.password && (
-            <p className='text-md text-red-500 '>{formik.errors.password}</p>
-          )}
-        </div>
-        <button
-          className='bg-slate-300 hover:bg-slate-400 drop-shadow-md px-4 py-2 rounded-md'
-          type='submit'
-        >
-          Login
-        </button>
-      </form>
-      <GoogleLogin />
+    <div className='container text-center mt-5'>
+      <h1 className='place-self-center text-2xl mb-4 pt-4'>
+        Login with your account
+      </h1>
+      <div className='mx-auto mb-20 border border-slate-500 p-8 shadow-md rounded-sm w-96'>
+        <Toaster />
+        <form onSubmit={formik.handleSubmit} className='max-w-xs'>
+          <div className='mb-2'>
+            <input
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+              className='border border-slate-500 px-4 py-2 w-full rounded-md'
+              type='text'
+              id='email'
+              placeholder='Email'
+            />
+            {formik.errors.email && formik.touched.email && (
+              <p className='text-md text-red-500 '>{formik.errors.email}</p>
+            )}
+          </div>
+          <div className='mb-2'>
+            <input
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              className='border border-slate-500 px-4 py-2 w-full rounded-md'
+              type='password'
+              id='password'
+              placeholder='Password'
+            />
+            {formik.errors.password && formik.touched.password && (
+              <p className='text-md text-red-500 '>{formik.errors.password}</p>
+            )}
+          </div>
+          <button
+            className='bg-slate-300 hover:bg-slate-400 drop-shadow-md px-4 py-2 rounded-md'
+            type='submit'
+          >
+            Login
+          </button>
+        </form>
+        <GoogleLogin />
+      </div>
     </div>
   );
 }

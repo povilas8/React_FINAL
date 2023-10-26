@@ -6,11 +6,11 @@ import RegisterPage from './pages/RegisterPage';
 import ShopsPage from './pages/ShopsPage';
 import { useAuth } from './store/AuthProvider';
 import { Toaster } from 'react-hot-toast';
-import CreateItem from './pages/CreateItem';
 import SingleItemPage from './pages/SingleItemPage';
 import ProfilePage from './pages/ProfilePage';
 import MyAddsPage from './pages/MyAddsPage';
 import { useEffect, useState } from 'react';
+import CreateItemPage from './pages/CreateItemPage';
 
 export default function App() {
   const ctx = useAuth();
@@ -51,7 +51,7 @@ export default function App() {
             <Route
               path='/additem'
               element={
-                ctx.isLoggedIn ? <CreateItem /> : <Navigate to={'/login'} />
+                ctx.isLoggedIn ? <CreateItemPage /> : <Navigate to={'/login'} />
               }
             />
             <Route
